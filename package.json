@@ -1,0 +1,23 @@
+{
+   "name": "typescript-workshop",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "ts-node src/index.ts",
+      "typeorm": "ts-node ./node_modules/typeorm/cli.js"
+   },
+   "author": "",
+   "license": "ISC",
+   "devDependencies": {
+      "@types/node": "^8.0.29",
+      "ts-node": "3.3.0",
+      "typescript": "2.5.2"
+   },
+   "dependencies": {
+      "mysql": "^2.16.0",
+      "reflect-metadata": "^0.1.10",
+      "typeorm": "0.2.14"
+   }
+}

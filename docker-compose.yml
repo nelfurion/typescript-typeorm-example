@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+
+  db:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: typeorm-workshop-db
+      MYSQL_ROOT_PASSWORD: p4ssw0rd
+    ports:
+      - 3306:3306
+    volumes:
+      - /var/lib/mysql
