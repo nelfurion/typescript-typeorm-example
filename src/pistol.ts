@@ -3,13 +3,17 @@ import { createConnection, getRepository } from 'typeorm'
 
 import { PistolOBX } from './entity/PistolOBX'
 
+const obxData = require('../test-obx.json')
+
 try {
   createConnection().then((async connection => {
-    const obxRepository = getRepository(PistolOBX)
-
-    const obx = new PistolOBX()
-    obx.text = 'SEXUAL HEALTH SCREEN'
-    obx.codingSystem = 'WinPath'
+    // console.log(obxData)
+    //
+    // const obxRepository = getRepository(PistolOBX)
+    //
+    // const obx = new PistolOBX()
+    // obx.text = obxData.observation_identifier.text
+    // obx.codingSystem = obxData.observation_identifier.coding_system
 
     /**
      * We can use save to either save one / or many objects of the type
@@ -17,13 +21,18 @@ try {
      * @return     returns the saved model object
      */
      // We can also use .create and pass a JSON
-    const savedObx = await obxRepository.save(obx)
+    // const savedObx = await obxRepository.save(obx)
+    //
+    // console.log(savedObx)
+    //
+    // const foundObx = await obxRepository.findOne(1)
+    //
+    // console.log(foundObx)
 
-    console.log(savedObx)
+    // export const handler = async (event: any = {}): Promise<any> => {
+    /** return something? */
+    // }
 
-    const foundObx = await obxRepository.findOne(1)
-
-    console.log(foundObx)
 
   }))
 } catch (e) {

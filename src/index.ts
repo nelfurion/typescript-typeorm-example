@@ -1,21 +1,44 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import {
+  createConnection,
+  getRepository,
+} from "typeorm";
 
-createConnection().then(async connection => {
+import {
+  Observation,
+  ObservationIdentifier
+} from './entity'
 
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
+/**
+ * A lambda function example with a promise instead of a callback.
+ * We can also pass a callback, but this is a bit cleaner.
+ * @param  event AWS Event
+ * @return       Promise
+ */
+export const handler = async (event: any = {}): Promise<any> => {
+  createConnection().then(async connection => {
+    const observationRepository = getRepository(Observation)
+    const observationIdentifierRepository = getRepository(ObservationIdentifier)
 
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
+    const observationIdentifier = new ObservationIdentifier()
+    observationIdentifier.identifier = 'DLT'
+    observationIdentifier.text = 'SEXUAL HEALTH SCREEN'
+    const identifier = await observationIdentifierRepository.save(observationIdentifier)
 
-    console.log("Here you can setup and run express/koa/any other framework.");
+    const observations = []
+    for (let i = 0; i < 3; i++) {
+      const observation = await observationRepository.create({
+        sequence_no: 1000 + i,
+        observation_value: 'some observation value',
+        observationIdentifier: identifier
+      })
+      observations.push()
+    }
 
-}).catch(error => console.log(error));
+    const savedObsertavions = observationRepository.save(observations)
+
+    console.log(observations)
+    console.log(identifier)
+
+  }).catch(error => console.log(error));
+}
