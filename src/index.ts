@@ -30,9 +30,10 @@ export const handler = async (event: any = {}): Promise<any> => {
       const observation = await observationRepository.create({
         sequence_no: 1000 + i,
         observation_value: 'some observation value',
-        observationIdentifier: identifier
+        observationIdentifier: identifier,
+        observation_result_status: '.'
       })
-      observations.push()
+      observations.push(observation)
     }
 
     const savedObsertavions = observationRepository.save(observations)
@@ -40,5 +41,6 @@ export const handler = async (event: any = {}): Promise<any> => {
     console.log(observations)
     console.log(identifier)
 
+    return JSON.stringify(event, null, 2);
   }).catch(error => console.log(error));
 }
